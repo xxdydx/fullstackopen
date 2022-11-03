@@ -10,9 +10,6 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
-  const [newTitle, setNewTitle] = useState('')
-  const [newAuthor, setNewAuthor] = useState('')
-  const [newUrl, setNewUrl] = useState('')
   const [notification, setNotification] = useState(null)
   const [user, setUser] = useState(null)
 
@@ -55,13 +52,7 @@ const App = () => {
     
   }
 
-
-  const addBlog = (event) => {
-    const blogObject = {
-      title: newTitle,
-      author:newAuthor,
-      url: newUrl
-    }
+  const createBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility()
     blogService
     .create(blogObject)
@@ -71,9 +62,6 @@ const App = () => {
       setTimeout(() => {
         setNotification(null)
       }, 2500)
-      setNewAuthor('')
-      setNewTitle('')
-      setNewUrl('')
     })
     .catch(error =>{
       setNotification(error.response.data.error)
@@ -82,6 +70,8 @@ const App = () => {
       }, 2500)
     })
   }
+
+
 
 
   const logout = (event) => {
@@ -122,15 +112,7 @@ const App = () => {
       <h2>blogs</h2> 
       <button onClick={logout}>logout</button>
       <Togglable buttonLabel = 'create' ref={blogFormRef}>
-      <NewBlog
-      addBlog ={addBlog}
-      newAuthor= {newAuthor}
-      newTitle={newTitle}
-      newUrl = {newUrl}
-      titleChange = {({target}) => setNewTitle(target.value)}
-      authorChange = {({target}) => setNewAuthor(target.value)}
-      UrlChange = {({target}) => setNewUrl(target.value)}
-    />
+      <NewBlog createBlog={createBlog}/>
      </Togglable>
 
       {blogs.map(blog =>
