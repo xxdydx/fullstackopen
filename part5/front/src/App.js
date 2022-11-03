@@ -120,7 +120,7 @@ const App = () => {
       <h2>blogs</h2> 
       <button onClick={logout}>logout</button>
       <Togglable buttonLabel = 'create'>
-      <NewBlog>
+      <NewBlog
       addBlog ={addBlog}
       newAuthor= {newAuthor}
       newTitle={newTitle}
@@ -128,7 +128,7 @@ const App = () => {
       titleChange = {({target}) => setNewTitle(target.value)}
       authorChange = {({target}) => setNewAuthor(target.value)}
       UrlChange = {({target}) => setNewUrl(target.value)}
-     </NewBlog>
+    />
      </Togglable>
 
       {blogs.map(blog =>

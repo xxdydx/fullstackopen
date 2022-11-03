@@ -1,4 +1,4 @@
-const NewBlog = (addBlog, newTitle, titleChange, newAuthor, authorChange, newUrl, UrlChange) => {
+const NewBlog = ({addBlog, newTitle, titleChange, newAuthor, authorChange, newUrl, UrlChange}) => {
 
     return (
     <div>
