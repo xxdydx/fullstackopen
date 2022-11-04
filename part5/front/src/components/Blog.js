@@ -1,7 +1,8 @@
 import {useState} from 'react'
 
-const Blog = ({blog,user}) => {
+const Blog = ({blogs,blog,user,updateBlog}) => {
   const [view, setView] = useState(false)
+  const [likes, setLikes] = useState(blog.likes)
   const buttonText = view ? "hide" : "view";
   const blogStyle = {
     paddingTop: 10,
@@ -11,17 +12,19 @@ const Blog = ({blog,user}) => {
     marginBottom: 5
   }
 
-const handleLikes = ({blogs, updateBlog}) => {
+const handleLikes = (event) => {
   const oldBlog = blogs.filter(b => b.id === blog.id)
+  const blogID = blog.id
   const likedBlog = {
-    title: oldBlog.title,
-    author:oldBlog.author,
-    likes:oldBlog.likes +1,
-    url:oldBlog.url
+    title: oldBlog[0].title,
+    author:oldBlog[0].author,
+    likes:oldBlog[0].likes +1,
+    url:oldBlog[0].url
   }
-  updateBlog(likedBlog)
-  console.log(likedBlog)
- 
+
+  updateBlog(likedBlog,blogID)
+  setLikes(likes+1)
+
 }
 
 

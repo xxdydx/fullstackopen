@@ -71,6 +71,18 @@ const App = () => {
     })
   }
 
+  const updateBlog = (blogObject, id) => {
+    blogService
+    .update(id,blogObject)
+    .then(response => {
+      setBlogs(blogs.map(item => item.id === id ? blogObject : item));
+    })
+    .catch(error => {
+      setNotification(error.response.data.error)
+      
+    })
+
+  }
 
 
 
@@ -118,7 +130,7 @@ const App = () => {
 
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} user={user} />
+        <Blog key={blog.id} blog={blog} blogs={blogs} user={user} updateBlog={updateBlog} />
       )}
     </div>
 
