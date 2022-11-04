@@ -11,6 +11,19 @@ const Blog = ({blog,user}) => {
     marginBottom: 5
   }
 
+const handleLikes = ({blogs, updateBlog}) => {
+  const oldBlog = blogs.filter(b => b.id === blog.id)
+  const likedBlog = {
+    title: oldBlog.title,
+    author:oldBlog.author,
+    likes:oldBlog.likes +1,
+    url:oldBlog.url
+  }
+  updateBlog(likedBlog)
+  console.log(likedBlog)
+ 
+}
+
 
 return (
   <div style={blogStyle}>
@@ -19,7 +32,7 @@ return (
                 view ? (
                     <div>
                     {blog.url} <br/>
-                    likes {blog.likes} <button>like</button> <br/>
+                    likes {blog.likes} <button onClick={(handleLikes)}>like</button> <br/>
                     {user.name} <br />
                     </div>
                 )
