@@ -71,16 +71,17 @@ const App = () => {
     })
   }
 
-  const updateBlog = (blogObject, id) => {
+  const updateBlog = (blogObject) => {
     blogService
-    .update(id,blogObject)
+    .update(blogObject)
     .then(response => {
-      setBlogs(blogs.map(item => item.id === id ? blogObject : item));
+      setBlogs(blogs.map(item => item.id === blogObject.id ? blogObject : item));
     })
     .catch(error => {
       setNotification(error.response.data.error)
-      
+
     })
+
 
   }
 

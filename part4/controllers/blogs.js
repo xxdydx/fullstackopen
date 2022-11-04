@@ -103,7 +103,26 @@ blogRouter.delete('/:id', async (request, response, next) => {
 
 
 blogRouter.put('/:id', async (request, response, next) => {
+
   const body = request.body
+  const token = getTokenFrom(request)
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+  if (!body.likes) {
+    body.likes = 0
+  }
+  if (!body.title) {
+    return response.status(400).json({
+      error: 'title is required'
+    })
+  }
+  if (!body.url) {
+    return response.status(400).json({
+      error: 'url is required'
+    })
+  }
   
   const blog = {
     title: body.title,

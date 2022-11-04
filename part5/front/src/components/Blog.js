@@ -13,16 +13,12 @@ const Blog = ({blogs,blog,user,updateBlog}) => {
   }
 
 const handleLikes = (event) => {
-  const oldBlog = blogs.filter(b => b.id === blog.id)
-  const blogID = blog.id
-  const likedBlog = {
-    title: oldBlog[0].title,
-    author:oldBlog[0].author,
-    likes:oldBlog[0].likes +1,
-    url:oldBlog[0].url
-  }
+  const likedBlog = ({
+    ...blog,
+    likes: blog.likes + 1
+  })
 
-  updateBlog(likedBlog,blogID)
+  updateBlog(likedBlog)
   setLikes(likes+1)
 
 }
