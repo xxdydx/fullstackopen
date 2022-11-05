@@ -1,21 +1,26 @@
-const Notif = ({ message, type }) => {
-    if (message === null) {
+import * as React from 'react';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
+const Notif = ({error, success }) => {
+
+    if (error === null && success === null) {
       return null
     }
-    else if (type === 'error') {
-      return (
-        <div className='error'>
-        {message}
-      
-      </div>
-      )
+    else if (error === null) {
+      return (    
+      <Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert severity="success">{success}</Alert>
+    </Stack>
+    )
+
     }
   
     return (
-      <div className='notif'>
-        {message}
       
-      </div>
+      <Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert severity="error">{error}</Alert>
+    </Stack>
 
       
     )

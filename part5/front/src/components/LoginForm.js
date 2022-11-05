@@ -19,7 +19,7 @@ import blogService from '../services/blogs'
 
 const theme = createTheme();
 
-export default function SignIn(setUser,setUsername,setPassword,setNotification) {
+export default function SignIn(setUser,setUsername,setPassword,setError) {
     const handleLogin = async (event) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget);
@@ -37,9 +37,9 @@ export default function SignIn(setUser,setUsername,setPassword,setNotification) 
           setPassword('')
         }
         catch (exception) {
-          setNotification('Wrong credentials')
+          setError('Wrong credentials')
           setTimeout(() => {
-            setNotification(null)
+            setError(null)
           }, 2500)
     
         }
@@ -84,7 +84,7 @@ export default function SignIn(setUser,setUsername,setPassword,setNotification) 
                 <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>
                   <TextField
                     margin="normal"
-                    required
+                    
                     fullWidth
                     id="username"
                     label="Username"
@@ -94,7 +94,7 @@ export default function SignIn(setUser,setUsername,setPassword,setNotification) 
                   />
                   <TextField
                     margin="normal"
-                    required
+                    
                     fullWidth
                     name="password"
                     label="Password"

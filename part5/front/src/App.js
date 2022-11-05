@@ -10,7 +10,8 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
-  const [notification, setNotification] = useState(null)
+  const [error, setError] = useState(null)
+  const [success, setSuccess] =useState(null)
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -30,23 +31,29 @@ const App = () => {
 
 
 
-  const createBlog = (blogObject) => {
-    blogFormRef.current.toggleVisibility()
-    blogService
-    .create(blogObject)
-    .then(response => {
-      setBlogs(blogs.concat.response.data)
-      setNotification ('successfully added blog!')
+
+  const createBlog = async (blogObject) => {
+    try {
+      blogFormRef.current.toggleVisibility()
+      const createdBlog = await blogService
+        .create(blogObject)
+      setSuccess(
+        `Blog ${blogObject.title} was successfully added`
+      )
+      setBlogs(blogs.concat(createdBlog))
+      setError(null)
       setTimeout(() => {
-        setNotification(null)
+        setSuccess(null)
       }, 2500)
-    })
-    .catch(error =>{
-      setNotification(error.response.data.error)
+    } catch(exception) {
+      setError(
+        `Cannot add blog ${blogObject.title}`
+      )
+      setSuccess(null)
       setTimeout(() => {
-        setNotification(null)
+        setSuccess(null)
       }, 2500)
-    })
+    }
   }
 
   const updateBlog = (blogObject) => {
@@ -54,9 +61,13 @@ const App = () => {
     .update(blogObject)
     .then(response => {
       setBlogs(blogs.map(item => item.id === blogObject.id ? blogObject : item));
+      
     })
     .catch(error => {
-      setNotification(error.response.data.error)
+      setError(error.response.data.error)
+      setTimeout(() => {
+        setError(null)
+      }, 2500)
 
     })
 
@@ -70,13 +81,16 @@ const App = () => {
       .remove(id)
       .then(response =>{
         setBlogs(blogs.filter(blogs => blogs.id !== id));
-        setNotification(`Successfully deleted ${title}`);
+        setSuccess(`Successfully deleted`);
         setTimeout(() => {
-          setNotification(null)
+          setSuccess(null)
         }, 2500)
       })
       .catch(error => {
-        setNotification(error.response.data.error)
+        setError(error.response.data.error)
+        setTimeout(() => {
+          setError(null)
+        }, 2500)
   
       })
     }
@@ -114,9 +128,9 @@ const App = () => {
 
   return (
     <div>
-      <Notif message={notification} />
+      <Notif error={error} success={success} />
       {user === null ?
-      SignIn(setUser,setUsername,setPassword,setNotification) :
+      SignIn(setUser,setUsername,setPassword,setError) :
       <div>
         <p>{user.username} logged-in</p>
         {blogRendering(blogs)}
