@@ -4,7 +4,7 @@ import Notif from './components/Notif'
 import NewBlog from './components/NewBlog'
 import Togglable from './components/Togglable'
 import blogService from './services/blogs'
-import loginService from './services/login'
+import SignIn from './components/LoginForm'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -28,29 +28,7 @@ const App = () => {
     }
   }, [])
 
-  const handleLogin = async (event) => {
-    event.preventDefault()
 
-    try {
-      const user = await loginService.login({username, password})
-      window.localStorage.setItem(
-        'AKAppSessionID', JSON.stringify(user)
-      ) 
-      blogService.setToken(user.token)
-
-      setUser(user)
-      setUsername('')
-      setPassword('')
-    }
-    catch (exception) {
-      setNotification('Wrong credentials')
-      setTimeout(() => {
-        setNotification(null)
-      }, 2500)
-
-    }
-    
-  }
 
   const createBlog = (blogObject) => {
     blogFormRef.current.toggleVisibility()
@@ -97,6 +75,10 @@ const App = () => {
           setNotification(null)
         }, 2500)
       })
+      .catch(error => {
+        setNotification(error.response.data.error)
+  
+      })
     }
 
   }
@@ -108,32 +90,7 @@ const App = () => {
     window.localStorage.removeItem('AKAppSessionID')
     setUser(null)
   }
-  const loginForm = () => (
-    <div>
-      <h1>Login </h1>
-    <form onSubmit={handleLogin}>
-            <div>
-              username
-                <input
-                type="text"
-                value={username}
-                name="Username"
-                onChange={({ target }) => setUsername(target.value)}
-              />
-            </div>
-            <div>
-              password
-                <input
-                type="password"
-                value={password}
-                name="Password"
-                onChange={({ target }) => setPassword(target.value)}
-              />
-            </div>
-            <button type="submit">login</button>
-          </form>
-    </div>
-  )
+
   const blogFormRef = useRef()
 
   const blogRendering = (blogs) => (
@@ -159,9 +116,9 @@ const App = () => {
     <div>
       <Notif message={notification} />
       {user === null ?
-      loginForm() :
+      SignIn(setUser,setUsername,setPassword,setNotification) :
       <div>
-        <p>{user.name} logged-in</p>
+        <p>{user.username} logged-in</p>
         {blogRendering(blogs)}
       </div>
     }
