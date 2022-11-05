@@ -8,8 +8,6 @@ import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [sortLiked, setSortLiked] = useState(false)
-  const [sortedBlogs, setSortedBlogs] = useState([])
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
   const [notification, setNotification] = useState(null)
@@ -147,24 +145,15 @@ const App = () => {
      </Togglable>
      <br/>
 
-
-      {blogs.map(blog =>
+      {blogs.sort((a, b) => (a.likes > b.likes) ? -1 : 1).map(blog =>
         <Blog key={blog.id} blog={blog} blogs={blogs} user={user} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
       )}
     </div>
 
   )
 
-  const handleSortLiked = (event) => {
-    setSortLiked(!sortLiked)
-    setSortedBlogs([...blogs].sort((a, b) => (a.likes > b.likes) ? -1 : 1))
-  }
 
   
-
-
-
-
 
   return (
     <div>
@@ -173,8 +162,7 @@ const App = () => {
       loginForm() :
       <div>
         <p>{user.name} logged-in</p>
-        <button onClick={handleSortLiked}>{sortLiked ? 'sort by date created' : 'sort by liked'}</button>
-        {sortLiked ? blogRendering(sortedBlogs) : blogRendering(blogs)}
+        {blogRendering(blogs)}
       </div>
     }
 
