@@ -86,6 +86,22 @@ const App = () => {
 
 
   }
+  const deleteBlog = (id) => {
+    const blog1 = blogs.filter(b => b.id === id)
+    const title = blog1[0].title
+    if(window.confirm(`Do you want to delete ${title}?`)) {
+      blogService
+      .remove(id)
+      .then(response =>{
+        setBlogs(blogs.filter(blogs => blogs.id !== id));
+        setNotification(`Successfully deleted ${title}`);
+        setTimeout(() => {
+          setNotification(null)
+        }, 2500)
+      })
+    }
+
+  }
 
 
 
@@ -133,7 +149,7 @@ const App = () => {
 
 
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} blogs={blogs} user={user} updateBlog={updateBlog} />
+        <Blog key={blog.id} blog={blog} blogs={blogs} user={user} updateBlog={updateBlog} deleteBlog={deleteBlog}/>
       )}
     </div>
 

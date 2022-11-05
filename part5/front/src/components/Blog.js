@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-const Blog = ({blogs,blog,user,updateBlog}) => {
+const Blog = ({blogs,blog,user,updateBlog, deleteBlog}) => {
   const [view, setView] = useState(false)
   const [likes, setLikes] = useState(blog.likes)
   const buttonText = view ? "hide" : "view";
@@ -30,9 +30,10 @@ return (
             {
                 view ? (
                     <div>
-                    {blog.url} <br/>
+                    <a href={blog.url} target="_blank">link</a> <br/>
                     likes {blog.likes} <button onClick={(handleLikes)}>like</button> <br/>
                     {user.name} <br />
+                    <button onClick={()=>deleteBlog(blog.id)}>remove</button>
                     </div>
                 )
 
