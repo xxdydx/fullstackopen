@@ -8,6 +8,8 @@ import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
+  const [sortLiked, setSortLiked] = useState(false)
+  const [sortedBlogs, setSortedBlogs] = useState([])
   const [username, setUsername] = useState('') 
   const [password, setPassword] = useState('')
   const [notification, setNotification] = useState(null)
@@ -120,7 +122,7 @@ const App = () => {
   )
   const blogFormRef = useRef()
 
-  const blogRendering = () => (
+  const blogRendering = (blogs) => (
     <div>
       <h2>blogs</h2> 
       <button onClick={logout}>logout</button>
@@ -136,6 +138,12 @@ const App = () => {
     </div>
 
   )
+
+  const handleSortLiked = (event) => {
+    setSortLiked(!sortLiked)
+    setSortedBlogs(blogs.sort((a, b) => (a.likes > b.likes) ? -1 : 1))
+  }
+
   
 
 
@@ -149,7 +157,8 @@ const App = () => {
       loginForm() :
       <div>
         <p>{user.name} logged-in</p>
-        {blogRendering()}
+        <button onClick={handleSortLiked}>sort by liked</button>
+        {sortLiked ? blogRendering(sortedBlogs) : blogRendering(blogs)}
       </div>
     }
 
