@@ -141,7 +141,7 @@ const App = () => {
 
   const handleSortLiked = (event) => {
     setSortLiked(!sortLiked)
-    setSortedBlogs(blogs.sort((a, b) => (a.likes > b.likes) ? -1 : 1))
+    setSortedBlogs([...blogs].sort((a, b) => (a.likes > b.likes) ? -1 : 1))
   }
 
   
@@ -157,7 +157,7 @@ const App = () => {
       loginForm() :
       <div>
         <p>{user.name} logged-in</p>
-        <button onClick={handleSortLiked}>sort by liked</button>
+        <button onClick={handleSortLiked}>{sortLiked ? 'sort by date created' : 'sort by liked'}</button>
         {sortLiked ? blogRendering(sortedBlogs) : blogRendering(blogs)}
       </div>
     }
