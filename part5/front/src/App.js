@@ -44,7 +44,7 @@ const App = () => {
       setError(null)
       setTimeout(() => {
         setSuccess(null)
-      }, 2500)
+      }, 4000)
     } catch(exception) {
       setError(
         `Cannot add blog ${blogObject.title}`
@@ -52,7 +52,7 @@ const App = () => {
       setSuccess(null)
       setTimeout(() => {
         setSuccess(null)
-      }, 2500)
+      }, 4000)
     }
   }
 
@@ -67,7 +67,7 @@ const App = () => {
       setError(error.response.data.error)
       setTimeout(() => {
         setError(null)
-      }, 2500)
+      }, 4000)
 
     })
 
@@ -84,13 +84,13 @@ const App = () => {
         setSuccess(`Successfully deleted`);
         setTimeout(() => {
           setSuccess(null)
-        }, 2500)
+        }, 4000)
       })
       .catch(error => {
         setError(error.response.data.error)
         setTimeout(() => {
           setError(null)
-        }, 2500)
+        }, 4000)
   
       })
     }
@@ -128,7 +128,7 @@ const App = () => {
 
   return (
     <div>
-      <Notif error={error} success={success} />
+      <Notif error={error} success={success} setError={setError} setSuccess={setSuccess}/>
       {user === null ?
       SignIn(setUser,setUsername,setPassword,setError) :
       <div>

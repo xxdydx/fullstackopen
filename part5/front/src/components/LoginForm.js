@@ -23,6 +23,7 @@ export default function SignIn(setUser,setUsername,setPassword,setError) {
     const handleLogin = async (event) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget);
+        console.log(data)
         const username = data.get('username')
         const password = data.get('password')
         try {
@@ -40,7 +41,7 @@ export default function SignIn(setUser,setUsername,setPassword,setError) {
           setError('Wrong credentials')
           setTimeout(() => {
             setError(null)
-          }, 2500)
+          }, 4000)
     
         }
         
