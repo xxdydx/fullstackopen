@@ -13,7 +13,7 @@ const notifSlice = createSlice ({
     }
 })
 
-export const {createNotification, clearNotification} = notifSlice.actions
+export const {createNotification} = notifSlice.actions
 
 export const setNotification = (message,time) => {
     return async (dispatch) => {
