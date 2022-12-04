@@ -33,7 +33,11 @@ return (
                     <a href={blog.url} target="_blank">link</a> <br/>
                     likes {blog.likes} <button onClick={(handleLikes)}>like</button> <br/>
                     {user.name} <br />
-                    <button onClick={()=>deleteBlog(blog.id)}>remove</button>
+                    {
+                    user.username === blog.user.username
+                    ? <button onClick={()=>deleteBlog(blog.id)}>remove</button>
+                    : null
+                    }
                     </div>
                 )
 

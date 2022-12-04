@@ -19,6 +19,7 @@ const App = () => {
       setBlogs( blogs )
     )  
   }, [])
+
   
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('AKAppSessionID')
