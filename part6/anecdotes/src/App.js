@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { vote, create, initializeAnecdotes } from "./reducers/anecdoteReducer";
@@ -15,17 +14,6 @@ const App = () => {
   useEffect(() => {
     dispatch(initializeAnecdotes());
   }, [dispatch]);
-=======
-import { useSelector, useDispatch } from 'react-redux'
-import {vote,create} from './reducers/anecdoteReducer'
-import AnecdoteList from './components/AnecdoteList'
-import AnecdoteForm from './components/AnecdoteForm'
-import Notification from './components/Notification'
-import Filter from './components/Filter'
-
-
-const App = () => {
->>>>>>> parent of 820e2f2 (completed 6.13-6.14)
 
   return (
     <div>
