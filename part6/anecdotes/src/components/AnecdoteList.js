@@ -11,17 +11,14 @@ const AnecdoteList = () => {
         return filterexp.test(anecdote.content);
       })
       : state.anecdotes)
-    
+      const anecdotes1 = [...anecdotes]
     const dispatch = useDispatch()
     
 
 
-
-    
-
     return (
         <div>
-        {anecdotes.sort((a, b) => (a.votes > b.votes) ? -1 : 1).map(anecdote =>
+        {anecdotes1.sort((a, b) => (a.votes > b.votes) ? -1 : 1).map(anecdote =>
             <div key={anecdote.id}>
               <div>
                 {anecdote.content}
