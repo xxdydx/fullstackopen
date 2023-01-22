@@ -55,17 +55,8 @@ const resolvers = {
   Query: {
     bookCount: () => books.length,
     authorCount: () => authors.length,
-    allBooks: (root, args) => {
-      if (args) {
-        const books = Book.find({});
-        const filters = Object.entries(args);
-        console.log(filters);
-        return books.filter((book) => {
-          return filters.every(([key, value]) => book[key].includes(value));
-        });
-      } else {
-        return Book.find({});
-      }
+    allBooks: async (root, args) => {
+      return Book.find({});
     },
 
     allAuthors: async (root, args) => {
